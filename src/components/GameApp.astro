@@ -1,0 +1,899 @@
+---
+import { URL_BASE } from "@/config";
+---
+
+<div id="game-root" class="select-none w-full">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- VIEW 1 — INTRO / INSTRUCTIONS                                -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="view-intro" class="game-view px-4 md:px-6 py-4 md:py-6">
+    <div class="grid lg:grid-cols-2 gap-6 items-center min-h-[60vh]">
+      <div class="space-y-5">
+        <p class="text-purple-dark text-lg lg:text-xl leading-snug">
+          A continuación, encontrarás
+          <strong class="font-bold">5 ejemplos de mujeres que se mueven al ritmo de lo original</strong>
+          y quieren reconectar con lo natural, para quienes resulta muy importante contar con opciones anticonceptivas que les brinden confianza hormonal.
+        </p>
+
+        <div class="bg-purple-light rounded-2xl p-5 lg:p-6 flex items-start gap-4 text-white shadow-lg">
+          <img src={`${URL_BASE}/icons/folder.webp`} class="w-12 h-12 shrink-0" alt="" />
+          <p class="text-base lg:text-lg leading-snug">
+            En cada caso, debes hacer clic sobre la opción correcta y ubicarla en el recuadro en blanco para descubrir los beneficios que brinda
+            <strong class="font-bold">la combinación de estradiol hemihidrato 1.5 mg / dienogest 2 mg.</strong>
+          </p>
+        </div>
+      </div>
+      <div class="hidden lg:block"></div>
+    </div>
+
+    <div class="flex justify-end mt-6">
+      <button type="button" data-goto="menu" class="btn-next">
+        <span>SIGUIENTE</span>
+        <img src={`${URL_BASE}/icons/arrow.webp`} class="w-6 h-6" alt="" />
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- VIEW 2 — MENU (5 CASES)                                      -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="view-menu" class="game-view hidden px-4 md:px-6 py-4 md:py-6">
+    <div class="flex justify-end mb-4">
+      <button
+        id="menu-reset-btn"
+        type="button"
+        class="rounded-full border-2 border-pink px-5 py-1.5 text-xs font-bold uppercase tracking-wide text-pink transition hover:bg-pink hover:text-white"
+      >
+        Reiniciar
+      </button>
+    </div>
+
+    <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto">
+      <!-- populated by JS -->
+    </div>
+
+    <div class="flex justify-center mt-6">
+      <img src={`${URL_BASE}/icons/point.webp`} class="w-10 h-10 animate-bounce-diagonal opacity-80" alt="" />
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- VIEW 3 — QUESTION                                            -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="view-question" class="game-view hidden px-4 md:px-6 py-4 md:py-6">
+    <div class="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start">
+
+      <!-- LEFT: Case + question + dropzone -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <img id="q-icon" src="" class="w-14 h-14 shrink-0" alt="" />
+          <h2 id="q-title" class="text-purple-dark text-2xl lg:text-3xl font-light leading-tight"></h2>
+        </div>
+
+        <p id="q-description" class="text-purple-dark text-base lg:text-lg leading-snug font-medium"></p>
+
+        <p id="q-question" class="text-purple-dark text-base lg:text-lg leading-snug font-bold"></p>
+
+        <div
+          id="q-dropzone"
+          class="bg-white/85 border-2 border-dashed border-pink/50 rounded-2xl p-5 min-h-[110px] flex items-center justify-center text-pink/70 text-sm text-center mt-3 transition-all"
+        >
+          Arrastra o toca la opción correcta aquí
+        </div>
+
+        <p class="text-purple-dark text-xs lg:text-sm mt-6 leading-tight">
+          TAN <strong class="font-bold">NATURAL</strong> AL <strong class="font-bold">RITMO</strong><br />
+          DE TU <strong class="font-bold">CUERPO</strong>
+        </p>
+      </div>
+
+      <!-- RIGHT: 3 options -->
+      <div class="relative space-y-3" id="q-options">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center mt-6">
+      <button type="button" data-goto="menu" class="btn-back">
+        ← VOLVER
+      </button>
+      <button type="button" data-goto="menu" class="btn-next">
+        <span>SIGUIENTE</span>
+        <img src={`${URL_BASE}/icons/arrow.webp`} class="w-6 h-6" alt="" />
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- VIEW 4 — FINAL                                               -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="view-final" class="game-view hidden px-4 md:px-6 py-8">
+    <div class="max-w-2xl mx-auto text-center text-white rounded-3xl p-8 lg:p-12 shadow-2xl" style="background:linear-gradient(135deg,#772583,#d9609a)">
+      <div class="text-6xl mb-4">🎉</div>
+      <h2 class="text-3xl lg:text-4xl font-bold leading-tight mb-3">¡FELICITACIONES!</h2>
+      <p class="text-base lg:text-lg mb-5 opacity-95">
+        Has descubierto los beneficios de <strong>estradiol hemihidrato 1.5 mg / dienogest 2 mg</strong> para 5 perfiles de mujeres.
+      </p>
+
+      <p id="final-attempts-text" class="text-base lg:text-lg font-semibold mb-4 opacity-95"></p>
+
+      <div id="final-perfect-badge" class="hidden inline-block mb-5 rounded-full px-5 py-2 text-sm font-bold uppercase tracking-wide" style="background:rgba(255,255,255,0.25)">
+        🏆 ¡Puntaje perfecto!
+      </div>
+
+      <div class="flex justify-center mt-4">
+        <button id="final-restart" type="button" class="rounded-full px-8 py-3 text-base font-bold uppercase text-purple-dark shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl bg-white">
+          Jugar de nuevo
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- SUCCESS POPUP (correct answer)                                   -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="success-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background:rgba(0,0,0,0.55)">
+  <div class="relative max-w-2xl w-full">
+    <button id="success-close"
+      class="absolute -top-4 -right-4 z-10 w-10 h-10 rounded-full text-white font-bold text-lg flex items-center justify-center cursor-pointer shadow-lg"
+      style="background:#d9609a">✕</button>
+    <div id="success-box" class="rounded-3xl p-6 lg:p-8 w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div id="success-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FAIL POPUP (wrong answer)                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="fail-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background:rgba(0,0,0,0.55)">
+  <div class="relative max-w-sm w-full">
+    <button id="fail-close"
+      class="absolute -top-4 -right-4 z-10 w-10 h-10 rounded-full text-white font-bold text-lg flex items-center justify-center cursor-pointer shadow-lg"
+      style="background:#d9609a">✕</button>
+    <div class="bg-white rounded-3xl p-8 lg:p-10 text-center w-full shadow-2xl">
+      <img src={`${URL_BASE}/icons/icon_fail.webp`} class="w-16 h-16 mx-auto mb-4" alt="" onerror="this.style.display='none'" />
+      <p class="text-2xl font-bold mb-2 text-purple-dark">Opción incorrecta</p>
+      <p class="text-pink font-bold text-lg">¡Intenta nuevamente!</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import confetti from "canvas-confetti";
+  window.quizConfetti = confetti;
+</script>
+
+<script is:inline define:vars={{ URL_BASE }}>
+// ═══════════════════════════════════════════════════════════════════
+// DATA — 5 clinical cases
+// ═══════════════════════════════════════════════════════════════════
+const CASES_ORDER = ['dislipidemia', 'diabetes', 'secundarios', 'animo', 'sangrados'];
+
+const CASES = {
+  dislipidemia: {
+    title: 'DISLIPIDEMIA',
+    titleBold: 'CONTROLADA',
+    icon: `${URL_BASE}/icons/dislipidemias.webp`,
+    bg:   `${URL_BASE}/images/bg_dislipidemia.webp`,
+    color: 'purple',
+    description: 'Mariana, de 32 años, tiene dislipidemia controlada con cambios en el estilo de vida. Busca un anticonceptivo hormonalmente amigable que no altere su perfil lipídico.',
+    question: '¿Por qué estradiol hemihidrato 1.5 mg / dienogest 2 mg es una opción de elección para ella?',
+    options: [
+      { text: 'Reducción automática sobre el colesterol LDL', correct: false },
+      { text: 'Aumento de la masa muscular, que mejora el metabolismo lipídico', correct: false },
+      { text: 'Efecto neutro sobre el metabolismo de los lípidos', correct: true },
+    ],
+    successHtml: `
+      <div class="flex items-start gap-4 mb-5">
+        <img src="${URL_BASE}/icons/dislipidemias.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <h2 style="color:#fff;font-size:1.4rem;font-weight:700;line-height:1.3">
+          ¡CORRECTO! <span style="color:#d787b5">DISLIPIDEMIA CONTROLADA</span>
+        </h2>
+      </div>
+      <p style="color:#fff;margin-bottom:1rem;font-weight:600">
+        En las mujeres con dislipidemia, la elección del componente estrogénico en las combinaciones hormonales es fundamental:
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem">
+        <div style="background:rgba(255,255,255,0.15);border-radius:1rem;padding:0.85rem 1rem">
+          <p style="color:#fff;font-weight:700;font-size:0.95rem;margin:0 0 0.4rem 0">Etinilestradiol</p>
+          <p style="color:#fff;font-size:0.8rem;margin:0">Induce la síntesis de proteínas hepáticas, lo que puede provocar un aumento en los niveles de triglicéridos e influir en otros parámetros lipídicos.<sup>1</sup></p>
+        </div>
+        <div style="background:rgba(255,255,255,0.25);border-radius:1rem;padding:0.85rem 1rem">
+          <p style="color:#fff;font-weight:700;font-size:0.95rem;margin:0 0 0.4rem 0">17β-estradiol</p>
+          <p style="color:#fff;font-size:0.8rem;margin:0">Brinda un perfil metabólico más favorable, que no modifica los lípidos ni las lipoproteínas.<sup>1</sup></p>
+        </div>
+      </div>
+      <p style="color:#fff;font-size:0.85rem;margin-bottom:1rem">
+        Además, el dienogest por sí solo no tiene un impacto significativo en el metabolismo lipídico.<sup>2</sup>
+      </p>
+      <p style="color:rgba(255,255,255,0.7);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+        <strong>Referencias:</strong> 1. Cagnacci A, Xholli A, Gabbi L, et al. The impact of hormonal contraceptives containing estradiol, estradiol valerate, and estetrol on liver proteins, lipids, glucose, blood pressure, and bone. Eur J Contracept Reprod Health Care. 2025:1-12.
+        2. Bartsch V. Gynaecological uses of dienogest alone and in combination with oestrogens. J Med Drug Rev. 2015;5:1-31.
+      </p>`,
+  },
+
+  diabetes: {
+    title: 'DIABETES',
+    titleBold: 'CONTROLADA',
+    icon: `${URL_BASE}/icons/diabetes.webp`,
+    bg:   `${URL_BASE}/images/bg_diabetes.webp`,
+    color: 'pink',
+    description: 'Laura, de 38 años, tiene diabetes tipo 2 controlada con metformina. Mantiene un estilo de vida activo y busca un anticonceptivo que no afecte sus niveles de glucosa.',
+    question: '¿Por qué estradiol hemihidrato 1.5 mg / dienogest 2 mg es una opción de elección para ella?',
+    options: [
+      { text: 'Efecto neutro sobre el metabolismo de la glucosa', correct: true },
+      { text: 'El 17β-estradiol ayuda a reducir la glucosa', correct: false },
+      { text: 'El dienogest regula los picos de glucosa después de las comidas', correct: false },
+    ],
+    successHtml: `
+      <div class="flex items-start gap-4 mb-5">
+        <img src="${URL_BASE}/icons/diabetes.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <h2 style="color:#fff;font-size:1.4rem;font-weight:700;line-height:1.3">
+          ¡CORRECTO! <span style="color:#fff">DIABETES CONTROLADA</span>
+        </h2>
+      </div>
+      <p style="color:#fff;margin-bottom:0.75rem;font-weight:600">
+        El componente estrogénico de las combinaciones hormonales puede influir en la tolerancia a la glucosa y, potencialmente, afectar su metabolismo.<sup>1</sup>
+      </p>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem">
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">El 17β-estradiol no afecta los niveles de glucosa en ayunas ni aumenta la resistencia a la insulina.<sup>1</sup></p>
+        </div>
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">El dienogest, con sus propiedades antiproliferativas, antiangiogénicas y antiinflamatorias, no ejerce un efecto negativo sobre el metabolismo de la glucosa.<sup>2</sup></p>
+        </div>
+      </div>
+      <p style="color:rgba(255,255,255,0.75);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+        <strong>Referencias:</strong> 1. Cagnacci A, Xholli A, Gabbi L, et al. Eur J Contracept Reprod Health Care. 2025:1-12.
+        2. Bartsch V. J Med Drug Rev. 2015;5:1-31.
+      </p>`,
+  },
+
+  secundarios: {
+    title: 'EFECTOS SECUNDARIOS',
+    titleBold: 'RELACIONADOS CON LOS ESTRÓGENOS',
+    icon: `${URL_BASE}/icons/point.webp`,
+    bg:   `${URL_BASE}/images/bg_secundarios.webp`,
+    color: 'pink',
+    description: 'Carolina, de 24 años, ha usado previamente anticonceptivos con etinilestradiol y presentó náuseas, cefalea y tensión mamaria. Busca una alternativa con menos efectos secundarios.',
+    question: '¿Por qué estradiol hemihidrato 1.5 mg / dienogest 2 mg es una opción de elección para ella?',
+    options: [
+      { text: 'El dienogest neutraliza todos los efectos secundarios', correct: false },
+      { text: 'El 17β-estradiol ofrece una mejor tolerabilidad', correct: true },
+      { text: 'El 17β-estradiol es igual que el etinilestradiol', correct: false },
+    ],
+    successHtml: `
+      <div class="flex items-start gap-4 mb-5">
+        <img src="${URL_BASE}/icons/point.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
+          ¡CORRECTO! <span style="color:#fff">MEJOR TOLERABILIDAD</span>
+        </h2>
+      </div>
+      <p style="color:#fff;font-size:0.95rem;margin-bottom:1rem">
+        Debido a su perfil de seguridad mejorado, el <strong>17β-estradiol</strong> es una alternativa de elección para las mujeres con baja tolerancia al etinilestradiol, ya que induce significativamente menos efectos secundarios relacionados con los estrógenos.<sup>1,2</sup>
+      </p>
+      <p style="color:rgba(255,255,255,0.75);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+        <strong>Referencias:</strong> 1. Jensen J, Bitzer J, Serrani M. Comparison of the pharmacologic and clinical profiles of new combined oral contraceptives containing estradiol. Open Access J Contracept. 2013;4:39-50.
+        2. Klipping C, Duijkers I, Parke S, et al. Hemostatic effects of a novel estradiol-based oral contraceptive. Drugs R D. 2011;11(2):159-70.
+      </p>`,
+  },
+
+  animo: {
+    title: 'CAMBIOS EN LOS',
+    titleBold: 'ESTADOS DE ÁNIMO',
+    icon: `${URL_BASE}/icons/faces.webp`,
+    bg:   `${URL_BASE}/images/bg_animo.webp`,
+    color: 'purple',
+    description: 'Daniela, de 20 años, ha experimentado irritabilidad y fluctuaciones emocionales con otros anticonceptivos. Busca una opción con estrógeno natural que favorezca la estabilidad del estado de ánimo.',
+    question: '¿Por qué estradiol hemihidrato 1.5 mg / dienogest 2 mg es una opción de elección para ella?',
+    options: [
+      { text: 'El 17β-estradiol ejerce un efecto positivo sobre la regulación emocional', correct: true },
+      { text: 'El 17β-estradiol actúa como un antidepresivo clínico', correct: false },
+      { text: 'El dienogest aumenta la dopamina', correct: false },
+    ],
+    successHtml: `
+      <div class="flex items-start gap-4 mb-5">
+        <img src="${URL_BASE}/icons/faces.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
+          ¡CORRECTO! <span style="color:#d787b5">REGULACIÓN EMOCIONAL</span>
+        </h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem">
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">El 17β-estradiol potencia la síntesis de serotonina y eleva sus niveles precursores, por lo cual tiene efectos que mejoran el estado de ánimo.<sup>1</sup></p>
+        </div>
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">También desempeña un papel esencial en el aprendizaje y la formación de la memoria, por lo que puede ayudar a mejorar las funciones cognitivas.<sup>1,2</sup></p>
+        </div>
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">El dienogest no contrarresta estos efectos positivos, ya que su unión a los receptores de estrógenos y andrógenos es insignificante.<sup>3</sup></p>
+        </div>
+      </div>
+      <p style="color:rgba(255,255,255,0.7);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+        <strong>Referencias:</strong> 1. Battipaglia C, Szeliga A, Setti V, et al. Endocrines. 2025;6(3):37.
+        2. Creinin MD, Cagnacci A, Spaczynski RZ, et al. Front Glob Womens Health. 2024;5:1395863.
+        3. Bartsch V. J Med Drug Rev. 2015;5:1-31.
+      </p>`,
+  },
+
+  sangrados: {
+    title: 'SANGRADOS',
+    titleBold: 'IRREGULARES',
+    icon: `${URL_BASE}/icons/schedule.webp`,
+    bg:   `${URL_BASE}/images/bg_sangrados.webp`,
+    color: 'purple',
+    description: 'Sofía, de 27 años, desea una opción anticonceptiva de bajo impacto hormonal, pero teme que sus patrones de sangrado se vuelvan impredecibles.',
+    question: '¿Por qué estradiol hemihidrato 1.5 mg / dienogest 2 mg es una opción de elección para ella?',
+    options: [
+      { text: 'El 17β-estradiol + dienogest proporciona sangrados predecibles pero más abundantes', correct: false },
+      { text: 'El 17β-estradiol + dienogest elimina por completo los sangrados desde el primer ciclo', correct: false },
+      { text: 'El 17β-estradiol + dienogest proporciona un buen patrón de sangrado', correct: true },
+    ],
+    successHtml: `
+      <div class="flex items-start gap-4 mb-5">
+        <img src="${URL_BASE}/icons/schedule.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
+          ¡CORRECTO! <span style="color:#d787b5">BUEN PATRÓN DE SANGRADO</span>
+        </h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem">
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">Las usuarias de combinaciones hormonales con 17β-estradiol experimentan sangrados más cortos y menos abundantes, en comparación con las usuarias de combinaciones con etinilestradiol.<sup>1</sup></p>
+        </div>
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">Cuando se presentan patrones irregulares de sangrado, son más frecuentes al inicio del tratamiento y suelen normalizarse al cabo de 3 meses en la mayoría de las usuarias.<sup>1,2</sup></p>
+        </div>
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">El potente efecto del dienogest sobre el endometrio ayuda, en gran medida, a reducir los sangrados irregulares.<sup>3</sup></p>
+        </div>
+      </div>
+      <p style="color:rgba(255,255,255,0.7);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+        <strong>Referencias:</strong> 1. Faculty of Sexual & Reproductive Healthcare. Problematic Bleeding with Hormonal Contraception. FSRH; 2015.
+        2. Archer DF, Mansour D, Foidart JM. J Clin Med. 2022;11(15):4634.
+        3. Bartsch V. J Med Drug Rev. 2015;5:1-31.
+      </p>`,
+  },
+};
+
+const POPUP_BG = {
+  purple: 'linear-gradient(135deg,#753bbd,#772583)',
+  pink:   'linear-gradient(135deg,#d9609a,#d787b5)',
+};
+
+const CONFETTI_COLORS = ['#d9609a', '#772583', '#ffffff', '#d787b5'];
+
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
+const state = {
+  view: 'intro',                       // intro | menu | question | final
+  currentCase: null,
+  completed: new Set(),                // cases solved correctly
+  failedAtLeastOnce: new Set(),        // cases user got wrong at least once
+  wrongAttempts: 0,
+  pickedOption: null,                  // for the active question
+};
+let confettiTimer = null;
+
+// ═══════════════════════════════════════════════════════════════════
+// VIEW SWITCHING + BACKGROUND
+// ═══════════════════════════════════════════════════════════════════
+function showView(name) {
+  state.view = name;
+  document.querySelectorAll('.game-view').forEach(s => s.classList.add('hidden'));
+  const el = document.getElementById('view-' + name);
+  if (el) el.classList.remove('hidden');
+  updateBackground();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateBackground() {
+  const bgHolder = document.getElementById('game-bg');
+  if (!bgHolder) return;
+  let url;
+  if (state.view === 'question' && state.currentCase) {
+    url = CASES[state.currentCase].bg;
+  } else {
+    url = `${URL_BASE}/images/bg_home.webp`;
+  }
+  bgHolder.style.backgroundImage = `url(${url})`;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MENU RENDERING
+// ═══════════════════════════════════════════════════════════════════
+function renderMenu() {
+  const grid = document.getElementById('menu-grid');
+  grid.innerHTML = '';
+  CASES_ORDER.forEach((id, idx) => {
+    const c = CASES[id];
+    const isDone = state.completed.has(id);
+    const wasFailed = state.failedAtLeastOnce.has(id) && !isDone;
+    const colorClass = c.color === 'purple' ? 'menu-pill-purple' : 'menu-pill-pink';
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `menu-pill ${colorClass} ${isDone ? 'is-done' : ''} ${wasFailed ? 'is-failed' : ''}`;
+    btn.dataset.case = id;
+
+    // Stagger: 3rd item (efectos secundarios) and 5th (sangrados) shifted in mock
+    btn.innerHTML = `
+      <img src="${c.icon}" class="menu-pill-icon" alt="" />
+      <span class="menu-pill-text">
+        <span class="menu-pill-thin">${c.title}</span>
+        <span class="menu-pill-bold">${c.titleBold}</span>
+      </span>
+      ${isDone   ? '<span class="menu-pill-badge ok">✓</span>'   : ''}
+      ${wasFailed? '<span class="menu-pill-badge bad">!</span>'  : ''}
+    `;
+
+    btn.addEventListener('click', () => {
+      // Allow replay even if completed (re-shows the success popup)
+      openCase(id);
+    });
+
+    grid.appendChild(btn);
+  });
+
+  // If all 5 done → auto-advance to final
+  if (state.completed.size === 5 && state.view === 'menu') {
+    setTimeout(() => showFinal(), 600);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// QUESTION RENDERING
+// ═══════════════════════════════════════════════════════════════════
+function openCase(id) {
+  state.currentCase = id;
+  state.pickedOption = null;
+  const c = CASES[id];
+
+  document.getElementById('q-icon').src = c.icon;
+  document.getElementById('q-title').innerHTML =
+    `<span class="font-light">${c.title}</span> <span class="font-bold">${c.titleBold}</span>`;
+  document.getElementById('q-description').textContent = c.description;
+  document.getElementById('q-question').textContent = c.question;
+
+  // Reset dropzone
+  const dz = document.getElementById('q-dropzone');
+  dz.innerHTML = 'Arrastra o toca la opción correcta aquí';
+  dz.classList.remove('has-option', 'drag-over');
+
+  // Render 3 options
+  const optsEl = document.getElementById('q-options');
+  optsEl.innerHTML = '';
+
+  c.options.forEach((opt, idx) => {
+    const card = document.createElement('div');
+    card.className = `q-option ${idx === 0 ? 'q-option-primary' : 'q-option-outline'} ${c.color === 'pink' ? 'tone-pink' : 'tone-purple'}`;
+    card.dataset.idx = String(idx);
+    card.dataset.correct = String(opt.correct);
+    card.draggable = true;
+    card.innerHTML = `<span>${opt.text}</span>`;
+
+    // Drag start
+    card.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', String(idx));
+      card.classList.add('dragging');
+    });
+    card.addEventListener('dragend', () => card.classList.remove('dragging'));
+
+    // Click to select (then click dropzone to drop, OR auto-drop)
+    card.addEventListener('click', () => {
+      if (card.classList.contains('used')) return;
+      // Clear previous selection
+      optsEl.querySelectorAll('.q-option.selected').forEach(o => o.classList.remove('selected'));
+      card.classList.add('selected');
+      state.pickedOption = idx;
+      // Auto-feedback if drop area is clicked, but allow tap-twice flow:
+      // Highlight the dropzone so user knows where to tap.
+    });
+
+    optsEl.appendChild(card);
+  });
+
+  // Hint pointer (animated finger) at the top option
+  const hint = document.createElement('img');
+  hint.src = `${URL_BASE}/icons/point.webp`;
+  hint.className = 'q-option-hint';
+  hint.alt = '';
+  optsEl.appendChild(hint);
+
+  // Wire dropzone events
+  wireDropzone();
+  showView('question');
+}
+
+function wireDropzone() {
+  const dz = document.getElementById('q-dropzone');
+  // Clone to remove old listeners
+  const fresh = dz.cloneNode(true);
+  dz.parentNode.replaceChild(fresh, dz);
+
+  fresh.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    fresh.classList.add('drag-over');
+  });
+  fresh.addEventListener('dragleave', () => fresh.classList.remove('drag-over'));
+  fresh.addEventListener('drop', (e) => {
+    e.preventDefault();
+    fresh.classList.remove('drag-over');
+    const idx = e.dataTransfer.getData('text/plain');
+    if (idx !== '') evaluateAnswer(parseInt(idx, 10));
+  });
+
+  // Tap-to-drop (after a card was selected)
+  fresh.addEventListener('click', () => {
+    if (state.pickedOption !== null) {
+      evaluateAnswer(state.pickedOption);
+    }
+  });
+}
+
+function evaluateAnswer(idx) {
+  const c = CASES[state.currentCase];
+  const opt = c.options[idx];
+  if (!opt) return;
+
+  const optEl = document.querySelector(`#q-options .q-option[data-idx="${idx}"]`);
+
+  if (opt.correct) {
+    // ✅
+    state.completed.add(state.currentCase);
+    state.pickedOption = null;
+
+    // Place in dropzone
+    const dz = document.getElementById('q-dropzone');
+    dz.innerHTML = `<span class="text-purple-dark font-bold text-sm lg:text-base">${opt.text}</span>`;
+    dz.classList.add('has-option');
+
+    // Disable all options
+    document.querySelectorAll('#q-options .q-option').forEach(o => {
+      o.classList.add('used');
+      o.draggable = false;
+    });
+
+    // Play confetti sound + side burst
+    playSound(`${URL_BASE}/sounds/confetti.mp3`);
+    launchSideConfetti();
+
+    setTimeout(() => showSuccessPopup(state.currentCase), 350);
+  } else {
+    // ❌
+    state.failedAtLeastOnce.add(state.currentCase);
+    state.wrongAttempts += 1;
+    state.pickedOption = null;
+
+    playSound(`${URL_BASE}/sounds/fail.mp3`);
+
+    if (optEl) {
+      optEl.classList.add('shake', 'selected');
+      setTimeout(() => optEl.classList.remove('shake'), 600);
+    }
+
+    showFailPopup();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// POPUPS
+// ═══════════════════════════════════════════════════════════════════
+function showSuccessPopup(caseId) {
+  const c = CASES[caseId];
+  const overlay = document.getElementById('success-overlay');
+  const box = document.getElementById('success-box');
+  box.style.background = POPUP_BG[c.color] || POPUP_BG.purple;
+  document.getElementById('success-body').innerHTML = c.successHtml;
+  overlay.classList.remove('hidden');
+}
+
+function closeSuccessPopup() {
+  document.getElementById('success-overlay').classList.add('hidden');
+  // Return to menu so user sees their progress
+  showView('menu');
+  renderMenu();
+}
+
+function showFailPopup() {
+  document.getElementById('fail-overlay').classList.remove('hidden');
+}
+
+function closeFailPopup() {
+  document.getElementById('fail-overlay').classList.add('hidden');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// FINAL VIEW
+// ═══════════════════════════════════════════════════════════════════
+function showFinal() {
+  const isPerfect = state.wrongAttempts === 0;
+  const txt = isPerfect
+    ? '¡Acertaste los 5 casos a la primera!'
+    : state.wrongAttempts === 1
+      ? 'Tuviste 1 intento fallido'
+      : `Tuviste ${state.wrongAttempts} intentos fallidos`;
+  document.getElementById('final-attempts-text').textContent = txt;
+  const badge = document.getElementById('final-perfect-badge');
+  if (isPerfect) badge.classList.remove('hidden'); else badge.classList.add('hidden');
+  showView('final');
+  if (isPerfect) launchPerfectFinishConfetti();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CONFETTI + AUDIO
+// ═══════════════════════════════════════════════════════════════════
+function playSound(src) {
+  try {
+    const a = new Audio(src);
+    a.play().catch(() => {});
+  } catch (_) {}
+}
+
+function launchSideConfetti() {
+  const c = window.quizConfetti;
+  if (!c) return;
+  c({ particleCount: 70, spread: 55, angle: 60,  origin: { x: 0, y: 0.55 }, colors: CONFETTI_COLORS });
+  c({ particleCount: 70, spread: 55, angle: 120, origin: { x: 1, y: 0.55 }, colors: CONFETTI_COLORS });
+}
+
+function launchPerfectFinishConfetti() {
+  const c = window.quizConfetti;
+  if (!c) return;
+  const end = Date.now() + 3000;
+  clearInterval(confettiTimer);
+  confettiTimer = setInterval(() => {
+    c({
+      particleCount: 55, spread: 360, startVelocity: 32,
+      origin: { x: Math.random(), y: Math.random() * 0.55 },
+      colors: CONFETTI_COLORS,
+    });
+    if (Date.now() > end) {
+      clearInterval(confettiTimer);
+      return;
+    }
+  }, 250);
+  // Optional reinforcement sound at start
+  playSound(`${URL_BASE}/sounds/confetti.mp3`);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RESET
+// ═══════════════════════════════════════════════════════════════════
+function resetGame() {
+  clearInterval(confettiTimer);
+  state.view = 'intro';
+  state.currentCase = null;
+  state.completed = new Set();
+  state.failedAtLeastOnce = new Set();
+  state.wrongAttempts = 0;
+  state.pickedOption = null;
+  document.getElementById('success-overlay').classList.add('hidden');
+  document.getElementById('fail-overlay').classList.add('hidden');
+  renderMenu();
+  showView('intro');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TOUCH DRAG (for mobile)
+// ═══════════════════════════════════════════════════════════════════
+let touchClone = null;
+let touchIdx = null;
+
+function attachTouchDelegation() {
+  const optsEl = document.getElementById('q-options');
+  if (!optsEl) return;
+
+  optsEl.addEventListener('touchstart', (e) => {
+    const card = e.target.closest('.q-option');
+    if (!card || card.classList.contains('used')) return;
+    const touch = e.touches[0];
+    touchIdx = parseInt(card.dataset.idx, 10);
+    const rect = card.getBoundingClientRect();
+    touchClone = card.cloneNode(true);
+    touchClone.style.cssText = `position:fixed;z-index:9999;pointer-events:none;opacity:0.88;width:${rect.width}px;left:${touch.clientX - rect.width/2}px;top:${touch.clientY - 30}px;`;
+    document.body.appendChild(touchClone);
+    e.preventDefault();
+  }, { passive: false });
+
+  optsEl.addEventListener('touchmove', (e) => {
+    if (!touchClone) return;
+    const touch = e.touches[0];
+    touchClone.style.left = (touch.clientX - touchClone.offsetWidth/2) + 'px';
+    touchClone.style.top  = (touch.clientY - 30) + 'px';
+    e.preventDefault();
+  }, { passive: false });
+
+  optsEl.addEventListener('touchend', (e) => {
+    if (touchClone) { touchClone.remove(); touchClone = null; }
+    if (touchIdx === null) return;
+    const touch = e.changedTouches[0];
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const dz = el && el.closest && el.closest('#q-dropzone');
+    if (dz) evaluateAnswer(touchIdx);
+    touchIdx = null;
+    e.preventDefault();
+  }, { passive: false });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════
+function init() {
+  // Render menu (empty state)
+  renderMenu();
+
+  // Wire view navigation buttons
+  document.querySelectorAll('[data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-goto');
+      if (target === 'menu') { showView('menu'); renderMenu(); }
+      else showView(target);
+    });
+  });
+
+  // Reset buttons
+  document.getElementById('menu-reset-btn').addEventListener('click', resetGame);
+  document.getElementById('final-restart').addEventListener('click', resetGame);
+
+  // Close popups
+  document.getElementById('success-close').addEventListener('click', closeSuccessPopup);
+  document.getElementById('success-overlay').addEventListener('click', (e) => {
+    if (e.target.id === 'success-overlay') closeSuccessPopup();
+  });
+  document.getElementById('fail-close').addEventListener('click', closeFailPopup);
+  document.getElementById('fail-overlay').addEventListener('click', (e) => {
+    if (e.target.id === 'fail-overlay') closeFailPopup();
+  });
+
+  attachTouchDelegation();
+
+  // Initial view
+  showView('intro');
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+<style is:global>
+/* ─── Buttons ─────────────────────────────────────────────────────── */
+.btn-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #753bbd, #772583);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.7rem 1.6rem;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+  box-shadow: 0 6px 18px rgba(119, 37, 131, 0.35);
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+.btn-next:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(119, 37, 131, 0.45); }
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 2px solid #772583;
+  color: #772583;
+  font-weight: 700;
+  padding: 0.55rem 1.2rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-back:hover { background: #772583; color: #fff; }
+
+/* ─── Menu pills ──────────────────────────────────────────────────── */
+.menu-pill {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 9999px;
+  color: #fff;
+  text-align: left;
+  font-size: 1.1rem;
+  line-height: 1.15;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+  cursor: pointer;
+  position: relative;
+  min-height: 78px;
+  border: none;
+}
+.menu-pill:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.25); filter: brightness(1.05); }
+.menu-pill-purple { background: linear-gradient(135deg, #753bbd, #772583); }
+.menu-pill-pink   { background: linear-gradient(135deg, #d787b5, #d9609a); }
+
+.menu-pill-icon { width: 2.6rem; height: 2.6rem; flex-shrink: 0; }
+.menu-pill-text { display: flex; flex-direction: column; gap: 0.1rem; line-height: 1.1; }
+.menu-pill-thin { font-weight: 300; font-size: 1.05rem; letter-spacing: 0.02em; opacity: 0.97; }
+.menu-pill-bold { font-weight: 700; font-size: 1.2rem; letter-spacing: 0.02em; }
+
+.menu-pill.is-done       { filter: brightness(0.7) saturate(0.6); }
+.menu-pill.is-failed     { box-shadow: 0 0 0 3px rgba(220,38,38,0.45), 0 6px 16px rgba(0,0,0,0.18); }
+
+.menu-pill-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.95rem;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.menu-pill-badge.ok  { background: #16a34a; color: #fff; }
+.menu-pill-badge.bad { background: #dc2626; color: #fff; }
+
+/* ─── Question options ────────────────────────────────────────────── */
+.q-option {
+  border-radius: 1rem;
+  padding: 1rem 1.3rem;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  cursor: grab;
+  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+  user-select: none;
+  background: rgba(255,255,255,0.5);
+  border: 2px solid rgba(255,255,255,0.7);
+  backdrop-filter: blur(4px);
+  color: #4a1a55;
+  font-weight: 500;
+}
+
+.q-option-primary.tone-purple { background: linear-gradient(135deg, #d787b5, #d9609a); color: #fff; border-color: transparent; font-weight: 700; box-shadow: 0 6px 16px rgba(217,96,154,0.35); }
+.q-option-primary.tone-pink   { background: linear-gradient(135deg, #d787b5, #d9609a); color: #fff; border-color: transparent; font-weight: 700; box-shadow: 0 6px 16px rgba(217,96,154,0.35); }
+
+.q-option:active { cursor: grabbing; }
+.q-option:hover:not(.used)   { transform: translateY(-2px); filter: brightness(1.05); }
+.q-option.selected           { outline: 3px solid #772583; outline-offset: 3px; }
+.q-option.dragging           { opacity: 0.5; }
+.q-option.used               { cursor: default; opacity: 0.55; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+.q-option.shake { animation: shake 0.55s ease; }
+
+.q-option-hint {
+  position: absolute;
+  top: 1.2rem;
+  left: -2.4rem;
+  width: 2rem;
+  height: 2rem;
+  pointer-events: none;
+  animation: bounce-diagonal 1s infinite;
+}
+
+/* ─── Dropzone ────────────────────────────────────────────────────── */
+#q-dropzone.drag-over {
+  border-color: #772583;
+  background: rgba(255,255,255,1);
+  box-shadow: 0 0 0 4px rgba(119,37,131,0.25);
+}
+#q-dropzone.has-option {
+  border-style: solid;
+  border-color: #772583;
+  background: #fff;
+}
+</style>

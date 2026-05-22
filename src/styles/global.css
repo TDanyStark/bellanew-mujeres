@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Brandon";
+  src: url("/apps/abbott/bellanew-mujeres/fonts/Brandon_reg.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Brandon";
+  src: url("/apps/abbott/bellanew-mujeres/fonts/Brandon_blk.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Brandon";
+  src: url("/apps/abbott/bellanew-mujeres/fonts/Brandon_light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@theme{
+  --color-purple-light: #753bbd;
+  --color-purple-dark: #772583;
+  --color-pink-light: #d787b5;
+  --color-pink: #d9609a;
+
+  --font-brandon: "Brandon", sans-serif;
+  --font-georgia: Georgia, serif;
+
+  --breakpoint-xs: 26rem;
+
+  --animate-bounce-diagonal: bounce-diagonal 1s infinite;
+}
+
+@keyframes bounce-diagonal {
+  0%, 100% {
+    transform: translate(25%, -25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translate(0, 0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}

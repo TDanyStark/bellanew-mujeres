@@ -1,0 +1,74 @@
+---
+import Header from "@/components/Header.astro";
+import { URL_BASE } from "@/config";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout>
+  <div
+    class="min-h-screen bg-right lg:bg-center lg:bg-cover"
+    style={`background-image: url(${URL_BASE}/images/bg_home.webp);`}
+  >
+    <div class="min-h-screen flex-1 flex flex-col max-w-7xl mx-auto">
+      <Header />
+      <main class="flex-1 flex">
+        <div
+          class="flex flex-col items-start justify-end flex-1 gap-6 p-4 lg:p-6"
+        >
+          <h1 class="flex flex-col leading-none text-xl lg:text-3xl text-white">
+            <span class="font-bold" style="font-size: 3.4em;">MUJERES</span>
+            AL RITMO DE LO ORIGINAL CON 
+            <span class="font-bold" style="font-size: 1.3em;">CONFIANZA <span class="text-pink">HORMONAL</span></span>
+          </h1>
+
+          <div class="relative">
+            <a
+              href={`${URL_BASE}/game`}
+              class="flex items-center gap-2 bg-pink-light text-white py-3 px-8 text-xl lg:text-3xl font-bold rounded-full w-max hover:scale-105 transition-transform duration-200"
+            >
+              HAZ CLIC AQUÍ PARA EMPEZAR
+            </a>
+            <div class="absolute -bottom-20 right-6 pointer-events-none">
+              <img
+                class="w-12"
+                src={`${URL_BASE}/icons/point.webp`}
+                alt="Icono Flecha"
+              />
+            </div>
+          </div>
+
+          
+        </div>
+      </main>
+      <footer class="flex flex-col sm:flex-row justify-between sm:items-end p-4 sm:p-6 text-white">
+        <div class="md:w-1/2">
+          <img src={`${URL_BASE}/logos/logo_natural.webp`} alt="Logo natural" class="h-14 object-contain" />
+          <p class="text-xs mt-4">
+            MATERIAL EXCLUSIVO PARA FARMACIAS <strong>CO-26-0506</strong>
+          </p>
+        </div>
+        <div class="md:w-1/2 max-w-96 mt-4">
+          <div class="flex justify-center items-center gap-4 max-w-lg">
+            <img
+              class="h-20"
+              src={`${URL_BASE}/images/qr.webp`}
+              alt="QR Code"
+            />
+            <p class="text-balance text-xs">
+              PARA ACCEDER A LA INFORMACIÓN DE SEGURIDAD Y DEL PRODUCTO EN ESTE
+              MATERIAL, POR FAVOR INGRESAR A: <a
+                href="https://co.medicinespro.abbott/productos"
+                target="_blank"
+                rel="noopener noreferrer">CO.MEDICINESPRO.ABBOTT/PRODUCTOS</a
+              >
+            </p>
+          </div>
+          <p class="text-[8px] mt-2">
+            BELLANEW: RS INVIMA 2019M_0018900. INDICACIÓN: ANTICONCEPCIÓN
+            HORMONAL.
+          </p>
+        </div>
+      </footer>
+    </div>
+  </div>
+</Layout>
