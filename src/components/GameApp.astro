@@ -1,8 +1,14 @@
 ---
 import { URL_BASE } from "@/config";
+import Header from "@/components/Header.astro";
 ---
 
-<div id="game-root" class="select-none w-full">
+<!-- Header (logos change dynamically by view) -->
+<div class="relative z-20">
+  <Header bellanew="v1" />
+</div>
+
+<main id="game-root" class="select-none w-full flex-1 relative z-10">
 
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- VIEW 1 — INTRO / INSTRUCTIONS                                -->
@@ -23,7 +29,7 @@ import { URL_BASE } from "@/config";
         </p>
 
         <div class="bg-purple-light rounded-2xl p-5 lg:p-6 flex items-start gap-4 text-white shadow-lg">
-          <img src={`${URL_BASE}/icons/folder.webp`} class="w-12 h-12 shrink-0" alt="" />
+          <img src={`${URL_BASE}/icons/folder.webp`} class="w-12 h-auto shrink-0" alt="" />
           <p class="text-xl lg:text-2xl leading-snug">
             En cada caso, debes hacer clic sobre la opción correcta y ubicarla en el recuadro en blanco para descubrir los beneficios que brinda
             <strong class="font-bold">la combinación de estradiol hemihidrato 1.5 mg / dienogest 2 mg.</strong>
@@ -44,8 +50,14 @@ import { URL_BASE } from "@/config";
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- VIEW 2 — MENU (5 CASES)                                      -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <section id="view-menu" class="game-view hidden px-4 md:px-6 py-4 md:py-6">
-    <div class="flex justify-end mb-4">
+  <section id="view-menu" class="game-view relative hidden px-4 md:px-6 py-4 md:py-6">
+    <!-- White overlay (opacity 5%) behind the buttons, fixed to viewport -->
+    <div
+      class="menu-overlay pointer-events-none fixed inset-0 z-0"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative z-10 flex justify-end mb-4">
       <button
         id="menu-reset-btn"
         type="button"
@@ -55,13 +67,10 @@ import { URL_BASE } from "@/config";
       </button>
     </div>
 
-    <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 max-w-5xl mx-auto">
+    <div id="menu-grid" class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 max-w-5xl mx-auto">
       <!-- populated by JS -->
     </div>
 
-    <div class="flex justify-center mt-6">
-      <img src={`${URL_BASE}/icons/point.webp`} class="w-10 h-10 animate-bounce-diagonal opacity-80" alt="" />
-    </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════ -->
@@ -72,14 +81,14 @@ import { URL_BASE } from "@/config";
 
       <!-- LEFT: Case + question + dropzone -->
       <div class="space-y-4">
-        <div class="flex items-center gap-3">
-          <img id="q-icon" src="" class="w-14 h-14 shrink-0" alt="" />
-          <h2 id="q-title" class="text-purple-dark text-2xl lg:text-3xl font-light leading-tight"></h2>
+        <div id="q-title-pill" class="menu-pill inline-flex" style="border-radius:9999px;min-height:0;width:max-content;max-width:100%">
+          <img id="q-icon" src="" class="menu-pill-icon shrink-0" alt="" />
+          <h2 id="q-title" class="menu-pill-text"></h2>
         </div>
 
-        <p id="q-description" class="text-purple-dark text-base lg:text-lg leading-snug font-medium"></p>
+        <p id="q-description" class="text-white text-xl lg:text-2xl leading-snug font-medium drop-shadow"></p>
 
-        <p id="q-question" class="text-purple-dark text-base lg:text-lg leading-snug font-bold"></p>
+        <p id="q-question" class="text-white text-xl lg:text-2xl leading-snug font-bold drop-shadow"></p>
 
         <div
           id="q-dropzone"
@@ -88,10 +97,11 @@ import { URL_BASE } from "@/config";
           Arrastra o toca la opción correcta aquí
         </div>
 
-        <p class="text-purple-dark text-xs lg:text-sm mt-6 leading-tight">
-          TAN <strong class="font-bold">NATURAL</strong> AL <strong class="font-bold">RITMO</strong><br />
-          DE TU <strong class="font-bold">CUERPO</strong>
-        </p>
+        <img
+          src={`${URL_BASE}/logos/logo_natural.webp`}
+          alt="Tan natural al ritmo de tu cuerpo"
+          class="h-14 object-contain mt-4"
+        />
       </div>
 
       <!-- RIGHT: 3 options -->
@@ -100,13 +110,9 @@ import { URL_BASE } from "@/config";
       </div>
     </div>
 
-    <div class="flex justify-between items-center mt-6">
+    <div class="flex justify-start items-center mt-6">
       <button type="button" data-goto="menu" class="btn-back">
         ← VOLVER
-      </button>
-      <button type="button" data-goto="menu" class="btn-next">
-        <span>SIGUIENTE</span>
-        <img src={`${URL_BASE}/icons/arrow.webp`} class="w-6 h-6" alt="" />
       </button>
     </div>
   </section>
@@ -135,7 +141,20 @@ import { URL_BASE } from "@/config";
       </div>
     </div>
   </section>
-</div>
+</main>
+
+<!-- Footer (text color changes dynamically by view) -->
+<footer
+  id="site-footer"
+  class="relative z-20 flex flex-col lg:flex-row justify-between items-end p-4 md:p-6 text-purple-dark"
+>
+  <div>
+    <p class="text-xs">
+      MATERIAL EXCLUSIVO PARA EL CUERPO MÉDICO <strong>CO-26-0493</strong>
+    </p>
+  </div>
+  
+</footer>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- SUCCESS POPUP (correct answer)                                   -->
@@ -160,7 +179,7 @@ import { URL_BASE } from "@/config";
       class="absolute -top-4 -right-4 z-10 w-10 h-10 rounded-full text-white font-bold text-lg flex items-center justify-center cursor-pointer shadow-lg"
       style="background:#d9609a">✕</button>
     <div class="bg-white rounded-3xl p-8 lg:p-10 text-center w-full shadow-2xl">
-      <img src={`${URL_BASE}/icons/icon_fail.webp`} class="w-16 h-16 mx-auto mb-4" alt="" onerror="this.style.display='none'" />
+      <img src={`${URL_BASE}/icons/icon_fail.webp`} class="w-16 h-auto mx-auto mb-4" alt="" onerror="this.style.display='none'" />
       <p class="text-2xl font-bold mb-2 text-purple-dark">Opción incorrecta</p>
       <p class="text-pink font-bold text-lg">¡Intenta nuevamente!</p>
     </div>
@@ -194,7 +213,7 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/dislipidemias.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/dislipidemias.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.4rem;font-weight:700;line-height:1.3">
           ¡CORRECTO! <span style="color:#d787b5">DISLIPIDEMIA CONTROLADA</span>
         </h2>
@@ -236,7 +255,7 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/diabetes.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/diabetes.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.4rem;font-weight:700;line-height:1.3">
           ¡CORRECTO! <span style="color:#fff">DIABETES CONTROLADA</span>
         </h2>
@@ -273,7 +292,7 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/point.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/point.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
           ¡CORRECTO! <span style="color:#fff">MEJOR TOLERABILIDAD</span>
         </h2>
@@ -302,7 +321,7 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/faces.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/faces.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
           ¡CORRECTO! <span style="color:#d787b5">REGULACIÓN EMOCIONAL</span>
         </h2>
@@ -340,7 +359,7 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/schedule.webp" style="width:3.5rem;height:3.5rem;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/schedule.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
           ¡CORRECTO! <span style="color:#d787b5">BUEN PATRÓN DE SANGRADO</span>
         </h2>
@@ -385,7 +404,7 @@ const state = {
 let confettiTimer = null;
 
 // ═══════════════════════════════════════════════════════════════════
-// VIEW SWITCHING + BACKGROUND
+// VIEW SWITCHING + BACKGROUND + CHROME (header / footer)
 // ═══════════════════════════════════════════════════════════════════
 function showView(name) {
   state.view = name;
@@ -393,6 +412,7 @@ function showView(name) {
   const el = document.getElementById('view-' + name);
   if (el) el.classList.remove('hidden');
   updateBackground();
+  updateChrome();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -406,6 +426,47 @@ function updateBackground() {
     url = `${URL_BASE}/images/bg_home.webp`;
   }
   bgHolder.style.backgroundImage = `url(${url})`;
+}
+
+/**
+ * Updates the Bellanew header logo and footer text color per view.
+ *
+ * Rules (per design):
+ *   - intro / menu / final  → footer purple-dark, header bellanew = v1
+ *   - question:
+ *       dislipidemia        → footer white, header bellanew = v2
+ *       diabetes, secundarios,
+ *       animo, sangrados    → footer white, header bellanew = v1
+ */
+function updateChrome() {
+  const footer = document.getElementById('site-footer');
+  const bellanewLogo = document.getElementById('header-bellanew-logo');
+  const abbottLogo = document.getElementById('header-abbott-logo');
+  if (!footer || !bellanewLogo) return;
+
+  let footerColor = 'purple-dark';   // 'purple-dark' | 'white'
+  let bellanewVer = 'v1';            // 'v1' | 'v2'
+  let abbottVer = 'black';           // 'black' | 'white' (kept consistent with footer)
+
+  if (state.view === 'question') {
+    footerColor = 'white';
+    abbottVer = 'black'; // header logos remain on light/dynamic bg — keep abbott black for contrast
+    if (state.currentCase === 'dislipidemia') bellanewVer = 'v2';
+    else bellanewVer = 'v1';
+  } else {
+    // intro, menu, final
+    footerColor = 'purple-dark';
+    bellanewVer = 'v1';
+    abbottVer = 'black';
+  }
+
+  // Footer text color
+  footer.classList.remove('text-purple-dark', 'text-white');
+  footer.classList.add(footerColor === 'white' ? 'text-white' : 'text-purple-dark');
+
+  // Header logos
+  bellanewLogo.src = `${URL_BASE}/logos/bellanew_${bellanewVer}.webp`;
+  if (abbottLogo) abbottLogo.src = `${URL_BASE}/logos/abbott_${abbottVer}.webp`;
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -422,10 +483,11 @@ function renderMenu() {
 
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = `menu-pill ${colorClass} ${isDone ? 'is-done' : ''} ${wasFailed ? 'is-failed' : ''}`;
+    // 5th item (idx === 4) spans both columns on md+ and centers
+    const spanClass = idx === 4 ? 'menu-pill-wrap-span' : '';
+    btn.className = `menu-pill ${colorClass} ${isDone ? 'is-done' : ''} ${wasFailed ? 'is-failed' : ''} ${spanClass}`;
     btn.dataset.case = id;
 
-    // Stagger: 3rd item (efectos secundarios) and 5th (sangrados) shifted in mock
     btn.innerHTML = `
       <img src="${c.icon}" class="menu-pill-icon" alt="" />
       <span class="menu-pill-text">
@@ -458,9 +520,14 @@ function openCase(id) {
   state.pickedOption = null;
   const c = CASES[id];
 
+  const pill = document.getElementById('q-title-pill');
+  pill.className = `menu-pill ${c.color === 'pink' ? 'menu-pill-pink' : 'menu-pill-purple'} inline-flex`;
+  pill.style.cssText = 'border-radius:9999px;min-height:0;width:max-content;max-width:100%;padding:0.9rem 1.6rem';
+
   document.getElementById('q-icon').src = c.icon;
   document.getElementById('q-title').innerHTML =
-    `<span class="font-light">${c.title}</span> <span class="font-bold">${c.titleBold}</span>`;
+    `<span class="menu-pill-thin">${c.title}</span>` +
+    `<span class="menu-pill-bold">${c.titleBold}</span>`;
   document.getElementById('q-description').textContent = c.description;
   document.getElementById('q-question').textContent = c.question;
 
@@ -475,7 +542,7 @@ function openCase(id) {
 
   c.options.forEach((opt, idx) => {
     const card = document.createElement('div');
-    card.className = `q-option ${idx === 0 ? 'q-option-primary' : 'q-option-outline'} ${c.color === 'pink' ? 'tone-pink' : 'tone-purple'}`;
+    card.className = `q-option ${c.color === 'pink' ? 'tone-pink' : 'tone-purple'}`;
     card.dataset.idx = String(idx);
     card.dataset.correct = String(opt.correct);
     card.draggable = true;
@@ -776,6 +843,11 @@ document.addEventListener('DOMContentLoaded', init);
   );
 }
 
+/* ─── Menu view white overlay (5% opacity) ────────────────────────── */
+.menu-overlay {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
 /* ─── Buttons ─────────────────────────────────────────────────────── */
 .btn-next {
   display: inline-flex;
@@ -814,28 +886,38 @@ document.addEventListener('DOMContentLoaded', init);
 .menu-pill {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
+  gap: 1.25rem;
+  padding: 1.4rem 2rem;
   border-radius: 9999px;
   color: #fff;
   text-align: left;
-  font-size: 1.1rem;
   line-height: 1.15;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.22);
   transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
   cursor: pointer;
   position: relative;
-  min-height: 78px;
+  min-height: 110px;
   border: none;
 }
-.menu-pill:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.25); filter: brightness(1.05); }
+.menu-pill:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(0,0,0,0.28); filter: brightness(1.05); }
 .menu-pill-purple { background: linear-gradient(135deg, #753bbd, #772583); }
 .menu-pill-pink   { background: linear-gradient(135deg, #d787b5, #d9609a); }
 
-.menu-pill-icon { width: 2.6rem; height: 2.6rem; flex-shrink: 0; }
-.menu-pill-text { display: flex; flex-direction: column; gap: 0.1rem; line-height: 1.1; }
-.menu-pill-thin { font-weight: 300; font-size: 1.05rem; letter-spacing: 0.02em; opacity: 0.97; }
-.menu-pill-bold { font-weight: 700; font-size: 1.2rem; letter-spacing: 0.02em; }
+/* 5th item: span both columns on md+ and stay centered (max width keeps pill size) */
+.menu-pill-wrap-span {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 100%;
+  max-width: calc(50% - 0.75rem); /* same width as a single-column pill */
+}
+@media (max-width: 767px) {
+  .menu-pill-wrap-span { max-width: 100%; }
+}
+
+.menu-pill-icon { width: 3.4rem; height: auto; flex-shrink: 0; }
+.menu-pill-text { display: flex; flex-direction: column; gap: 0.15rem; line-height: 1.1; }
+.menu-pill-thin { font-weight: 300; font-size: 1.45rem; letter-spacing: 0.02em; opacity: 0.97; }
+.menu-pill-bold { font-weight: 700; font-size: 1.65rem; letter-spacing: 0.02em; }
 
 .menu-pill.is-done       { filter: brightness(0.7) saturate(0.6); }
 .menu-pill.is-failed     { box-shadow: 0 0 0 3px rgba(220,38,38,0.45), 0 6px 16px rgba(0,0,0,0.18); }
@@ -861,25 +943,38 @@ document.addEventListener('DOMContentLoaded', init);
 /* ─── Question options ────────────────────────────────────────────── */
 .q-option {
   border-radius: 1rem;
-  padding: 1rem 1.3rem;
-  font-size: 0.95rem;
+  padding: 1.2rem 1.6rem;
+  font-size: 1.25rem;
   line-height: 1.3;
   cursor: grab;
-  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+  transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.15s;
   user-select: none;
-  background: rgba(255,255,255,0.5);
-  border: 2px solid rgba(255,255,255,0.7);
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(4px);
   color: #4a1a55;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-.q-option-primary.tone-purple { background: linear-gradient(135deg, #d787b5, #d9609a); color: #fff; border-color: transparent; font-weight: 700; box-shadow: 0 6px 16px rgba(217,96,154,0.35); }
-.q-option-primary.tone-pink   { background: linear-gradient(135deg, #d787b5, #d9609a); color: #fff; border-color: transparent; font-weight: 700; box-shadow: 0 6px 16px rgba(217,96,154,0.35); }
+/* Hover: fill with case color */
+.q-option.tone-purple:hover:not(.used) {
+  background: linear-gradient(135deg, #753bbd, #772583);
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(119, 37, 131, 0.4);
+}
+.q-option.tone-pink:hover:not(.used) {
+  background: linear-gradient(135deg, #d787b5, #d9609a);
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(217, 96, 154, 0.4);
+}
 
 .q-option:active { cursor: grabbing; }
-.q-option:hover:not(.used)   { transform: translateY(-2px); filter: brightness(1.05); }
-.q-option.selected           { outline: 3px solid #772583; outline-offset: 3px; }
+.q-option.selected.tone-purple { background: linear-gradient(135deg, #753bbd, #772583); color: #fff; border-color: transparent; outline: 3px solid #fff; outline-offset: 2px; }
+.q-option.selected.tone-pink   { background: linear-gradient(135deg, #d787b5, #d9609a); color: #fff; border-color: transparent; outline: 3px solid #fff; outline-offset: 2px; }
 .q-option.dragging           { opacity: 0.5; }
 .q-option.used               { cursor: default; opacity: 0.55; }
 
