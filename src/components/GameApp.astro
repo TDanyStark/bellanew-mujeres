@@ -140,7 +140,7 @@ import Header from "@/components/Header.astro";
 
       <p id="final-attempts-text" class="text-base lg:text-lg font-semibold mb-4 opacity-95"></p>
 
-      <div id="final-perfect-badge" class="hidden inline-block mb-5 rounded-full px-5 py-2 text-sm font-bold uppercase tracking-wide" style="background:rgba(255,255,255,0.25)">
+      <div id="final-perfect-badge" class="hidden mb-5 rounded-full px-5 py-2 text-sm font-bold uppercase tracking-wide" style="background:rgba(255,255,255,0.25);display:none">
         🏆 ¡Puntaje perfecto!
       </div>
 
@@ -704,7 +704,7 @@ function showFinal() {
       : `Tuviste ${state.wrongAttempts} intentos fallidos`;
   document.getElementById('final-attempts-text').textContent = txt;
   const badge = document.getElementById('final-perfect-badge');
-  if (isPerfect) badge.classList.remove('hidden'); else badge.classList.add('hidden');
+  badge.style.display = isPerfect ? 'block' : 'none';
   showView('final');
   if (isPerfect) launchPerfectFinishConfetti();
 }
@@ -732,18 +732,17 @@ function launchPerfectFinishConfetti() {
   const end = Date.now() + 3000;
   clearInterval(confettiTimer);
   confettiTimer = setInterval(() => {
+    if (Date.now() > end) {
+      clearInterval(confettiTimer);
+      return;
+    }
     c({
       particleCount: 55, spread: 360, startVelocity: 32,
       origin: { x: Math.random(), y: Math.random() * 0.55 },
       colors: CONFETTI_COLORS,
     });
-    if (Date.now() > end) {
-      clearInterval(confettiTimer);
-      return;
-    }
+    playSound(`${URL_BASE}/sounds/confetti.mp3`);
   }, 250);
-  // Optional reinforcement sound at start
-  playSound(`${URL_BASE}/sounds/confetti.mp3`);
 }
 
 // ═══════════════════════════════════════════════════════════════════
