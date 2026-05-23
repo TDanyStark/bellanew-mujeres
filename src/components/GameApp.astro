@@ -7,10 +7,16 @@ import { URL_BASE } from "@/config";
   <!-- ═══════════════════════════════════════════════════════════ -->
   <!-- VIEW 1 — INTRO / INSTRUCTIONS                                -->
   <!-- ═══════════════════════════════════════════════════════════ -->
-  <section id="view-intro" class="game-view px-4 md:px-6 py-4 md:py-6">
-    <div class="grid lg:grid-cols-2 gap-6 items-center min-h-[60vh]">
+  <section id="view-intro" class="game-view relative px-4 md:px-6 py-4 md:py-6">
+    <!-- Left-to-right white→transparent gradient overlay covering full viewport -->
+    <div
+      class="intro-gradient pointer-events-none fixed inset-0 z-0"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative z-10 grid lg:grid-cols-2 gap-6 items-center min-h-[60vh]">
       <div class="space-y-5">
-        <p class="text-purple-dark text-lg lg:text-xl leading-snug">
+        <p class="text-purple-dark text-xl lg:text-2xl leading-snug">
           A continuación, encontrarás
           <strong class="font-bold">5 ejemplos de mujeres que se mueven al ritmo de lo original</strong>
           y quieren reconectar con lo natural, para quienes resulta muy importante contar con opciones anticonceptivas que les brinden confianza hormonal.
@@ -18,7 +24,7 @@ import { URL_BASE } from "@/config";
 
         <div class="bg-purple-light rounded-2xl p-5 lg:p-6 flex items-start gap-4 text-white shadow-lg">
           <img src={`${URL_BASE}/icons/folder.webp`} class="w-12 h-12 shrink-0" alt="" />
-          <p class="text-base lg:text-lg leading-snug">
+          <p class="text-xl lg:text-2xl leading-snug">
             En cada caso, debes hacer clic sobre la opción correcta y ubicarla en el recuadro en blanco para descubrir los beneficios que brinda
             <strong class="font-bold">la combinación de estradiol hemihidrato 1.5 mg / dienogest 2 mg.</strong>
           </p>
@@ -27,7 +33,7 @@ import { URL_BASE } from "@/config";
       <div class="hidden lg:block"></div>
     </div>
 
-    <div class="flex justify-end mt-6">
+    <div class="relative z-10 flex justify-end mt-6">
       <button type="button" data-goto="menu" class="btn-next">
         <span>SIGUIENTE</span>
         <img src={`${URL_BASE}/icons/arrow.webp`} class="w-6 h-6" alt="" />
@@ -759,6 +765,17 @@ document.addEventListener('DOMContentLoaded', init);
 </script>
 
 <style is:global>
+/* ─── Intro view gradient overlay ─────────────────────────────────── */
+.intro-gradient {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.85) 25%,
+    rgba(255, 255, 255, 0.5) 55%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
 /* ─── Buttons ─────────────────────────────────────────────────────── */
 .btn-next {
   display: inline-flex;
