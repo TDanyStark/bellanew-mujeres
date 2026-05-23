@@ -77,18 +77,20 @@ import Header from "@/components/Header.astro";
   <!-- VIEW 3 — QUESTION                                            -->
   <!-- ═══════════════════════════════════════════════════════════ -->
   <section id="view-question" class="game-view hidden px-4 md:px-6 py-4 md:py-6">
-    <div class="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start">
+    <div class="grid lg:grid-cols-2 gap-6 lg:gap-30 items-start">
 
       <!-- LEFT: Case + question + dropzone -->
       <div class="space-y-4">
-        <div id="q-title-pill" class="menu-pill inline-flex" style="border-radius:9999px;min-height:0;width:max-content;max-width:100%">
+        <div id="q-title-pill" class="menu-pill flex" style="border-radius:1.5rem;min-height:0;width:100%">
           <img id="q-icon" src="" class="menu-pill-icon shrink-0" alt="" />
           <h2 id="q-title" class="menu-pill-text"></h2>
         </div>
 
-        <p id="q-description" class="text-white text-xl lg:text-2xl leading-snug font-medium drop-shadow"></p>
+        <div class="q-text-block">
+          <p id="q-description" class="text-white text-xl lg:text-2xl leading-snug font-medium drop-shadow"></p>
 
-        <p id="q-question" class="text-white text-xl lg:text-2xl leading-snug font-bold drop-shadow"></p>
+          <p id="q-question" class="text-white text-xl lg:text-2xl leading-snug font-bold drop-shadow mt-4"></p>
+        </div>
 
         <div
           id="q-dropzone"
@@ -97,18 +99,26 @@ import Header from "@/components/Header.astro";
           Arrastra o toca la opción correcta aquí
         </div>
 
+        <!-- Logo visible only on desktop (lg+) -->
         <img
           src={`${URL_BASE}/logos/logo_natural.webp`}
           alt="Tan natural al ritmo de tu cuerpo"
-          class="h-14 object-contain mt-4"
+          class="h-14 object-contain mt-4 hidden lg:block"
         />
       </div>
 
       <!-- RIGHT: 3 options -->
-      <div class="relative space-y-3" id="q-options">
+      <div class="relative space-y-3 lg:mt-30" id="q-options">
         <!-- populated by JS -->
       </div>
     </div>
+
+    <!-- Logo visible only on mobile (below options) -->
+    <img
+      src={`${URL_BASE}/logos/logo_natural.webp`}
+      alt="Tan natural al ritmo de tu cuerpo"
+      class="h-14 object-contain mt-4 lg:hidden"
+    />
 
     <div class="flex justify-start items-center mt-6">
       <button type="button" data-goto="menu" class="btn-back">
@@ -174,14 +184,25 @@ import Header from "@/components/Header.astro";
 <!-- FAIL POPUP (wrong answer)                                        -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <div id="fail-overlay" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background:rgba(0,0,0,0.55)">
-  <div class="relative max-w-sm w-full">
+  <div class="relative max-w-md w-full">
     <button id="fail-close"
       class="absolute -top-4 -right-4 z-10 w-10 h-10 rounded-full text-white font-bold text-lg flex items-center justify-center cursor-pointer shadow-lg"
-      style="background:#d9609a">✕</button>
-    <div class="bg-white rounded-3xl p-8 lg:p-10 text-center w-full shadow-2xl">
-      <img src={`${URL_BASE}/icons/icon_fail.webp`} class="w-16 h-auto mx-auto mb-4" alt="" onerror="this.style.display='none'" />
-      <p class="text-2xl font-bold mb-2 text-purple-dark">Opción incorrecta</p>
-      <p class="text-pink font-bold text-lg">¡Intenta nuevamente!</p>
+      style="background:#772583">✕</button>
+    <div class="rounded-3xl px-10 py-10 w-full shadow-2xl flex flex-col items-center gap-6" style="background:linear-gradient(135deg,#753bbd,#772583)">
+      <!-- icon + title row -->
+      <div class="flex items-center gap-5">
+        <img src={`${URL_BASE}/icons/icon_fail.webp`} class="w-24 h-auto shrink-0" alt="" onerror="this.style.display='none'" />
+        <div class="leading-tight">
+          <p class="font-black uppercase" style="font-size:2.1rem;color:#d9609a;line-height:1">OPCIÓN</p>
+          <p class="font-black uppercase text-white" style="font-size:2.1rem;line-height:1">INCORRECTA</p>
+        </div>
+      </div>
+      <!-- CTA button -->
+      <button type="button" id="fail-retry"
+        class="w-full rounded-full bg-white font-black uppercase text-center py-4 px-6 shadow-lg"
+        style="font-size:1.35rem;color:#772583;letter-spacing:0.03em">
+        ¡INTENTA NUEVAMENTE!
+      </button>
     </div>
   </div>
 </div>
@@ -213,9 +234,9 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/dislipidemias.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.4rem;font-weight:700;line-height:1.3">
-          ¡CORRECTO! <span style="color:#d787b5">DISLIPIDEMIA CONTROLADA</span>
+          ¡CORRECTO! <span style="color:#fff">DISLIPIDEMIA CONTROLADA</span>
         </h2>
       </div>
       <p style="color:#fff;margin-bottom:1rem;font-weight:600">
@@ -234,7 +255,7 @@ const CASES = {
       <p style="color:#fff;font-size:0.85rem;margin-bottom:1rem">
         Además, el dienogest por sí solo no tiene un impacto significativo en el metabolismo lipídico.<sup>2</sup>
       </p>
-      <p style="color:rgba(255,255,255,0.7);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+      <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
         <strong>Referencias:</strong> 1. Cagnacci A, Xholli A, Gabbi L, et al. The impact of hormonal contraceptives containing estradiol, estradiol valerate, and estetrol on liver proteins, lipids, glucose, blood pressure, and bone. Eur J Contracept Reprod Health Care. 2025:1-12.
         2. Bartsch V. Gynaecological uses of dienogest alone and in combination with oestrogens. J Med Drug Rev. 2015;5:1-31.
       </p>`,
@@ -255,7 +276,7 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/diabetes.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.4rem;font-weight:700;line-height:1.3">
           ¡CORRECTO! <span style="color:#fff">DIABETES CONTROLADA</span>
         </h2>
@@ -271,7 +292,7 @@ const CASES = {
           <p style="color:#fff;font-size:0.9rem;margin:0">El dienogest, con sus propiedades antiproliferativas, antiangiogénicas y antiinflamatorias, no ejerce un efecto negativo sobre el metabolismo de la glucosa.<sup>2</sup></p>
         </div>
       </div>
-      <p style="color:rgba(255,255,255,0.75);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+      <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
         <strong>Referencias:</strong> 1. Cagnacci A, Xholli A, Gabbi L, et al. Eur J Contracept Reprod Health Care. 2025:1-12.
         2. Bartsch V. J Med Drug Rev. 2015;5:1-31.
       </p>`,
@@ -280,7 +301,7 @@ const CASES = {
   secundarios: {
     title: 'EFECTOS SECUNDARIOS',
     titleBold: 'RELACIONADOS CON LOS ESTRÓGENOS',
-    icon: `${URL_BASE}/icons/point.webp`,
+    icon: `${URL_BASE}/icons/stairs.webp`,
     bg:   `${URL_BASE}/images/bg_secundarios.webp`,
     color: 'pink',
     description: 'Carolina, de 24 años, ha usado previamente anticonceptivos con etinilestradiol y presentó náuseas, cefalea y tensión mamaria. Busca una alternativa con menos efectos secundarios.',
@@ -292,7 +313,7 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/point.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
           ¡CORRECTO! <span style="color:#fff">MEJOR TOLERABILIDAD</span>
         </h2>
@@ -300,7 +321,7 @@ const CASES = {
       <p style="color:#fff;font-size:0.95rem;margin-bottom:1rem">
         Debido a su perfil de seguridad mejorado, el <strong>17β-estradiol</strong> es una alternativa de elección para las mujeres con baja tolerancia al etinilestradiol, ya que induce significativamente menos efectos secundarios relacionados con los estrógenos.<sup>1,2</sup>
       </p>
-      <p style="color:rgba(255,255,255,0.75);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+      <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
         <strong>Referencias:</strong> 1. Jensen J, Bitzer J, Serrani M. Comparison of the pharmacologic and clinical profiles of new combined oral contraceptives containing estradiol. Open Access J Contracept. 2013;4:39-50.
         2. Klipping C, Duijkers I, Parke S, et al. Hemostatic effects of a novel estradiol-based oral contraceptive. Drugs R D. 2011;11(2):159-70.
       </p>`,
@@ -321,9 +342,9 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/faces.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
-          ¡CORRECTO! <span style="color:#d787b5">REGULACIÓN EMOCIONAL</span>
+          ¡CORRECTO! <span style="color:#fff">REGULACIÓN EMOCIONAL</span>
         </h2>
       </div>
       <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem">
@@ -337,7 +358,7 @@ const CASES = {
           <p style="color:#fff;font-size:0.9rem;margin:0">El dienogest no contrarresta estos efectos positivos, ya que su unión a los receptores de estrógenos y andrógenos es insignificante.<sup>3</sup></p>
         </div>
       </div>
-      <p style="color:rgba(255,255,255,0.7);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+      <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
         <strong>Referencias:</strong> 1. Battipaglia C, Szeliga A, Setti V, et al. Endocrines. 2025;6(3):37.
         2. Creinin MD, Cagnacci A, Spaczynski RZ, et al. Front Glob Womens Health. 2024;5:1395863.
         3. Bartsch V. J Med Drug Rev. 2015;5:1-31.
@@ -359,9 +380,9 @@ const CASES = {
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
-        <img src="${URL_BASE}/icons/schedule.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
+        <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
-          ¡CORRECTO! <span style="color:#d787b5">BUEN PATRÓN DE SANGRADO</span>
+          ¡CORRECTO! <span style="color:#fff">BUEN PATRÓN DE SANGRADO</span>
         </h2>
       </div>
       <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem">
@@ -375,7 +396,7 @@ const CASES = {
           <p style="color:#fff;font-size:0.9rem;margin:0">El potente efecto del dienogest sobre el endometrio ayuda, en gran medida, a reducir los sangrados irregulares.<sup>3</sup></p>
         </div>
       </div>
-      <p style="color:rgba(255,255,255,0.7);font-size:0.7rem;margin-top:1rem;line-height:1.4">
+      <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
         <strong>Referencias:</strong> 1. Faculty of Sexual & Reproductive Healthcare. Problematic Bleeding with Hormonal Contraception. FSRH; 2015.
         2. Archer DF, Mansour D, Foidart JM. J Clin Med. 2022;11(15):4634.
         3. Bartsch V. J Med Drug Rev. 2015;5:1-31.
@@ -522,7 +543,7 @@ function openCase(id) {
 
   const pill = document.getElementById('q-title-pill');
   pill.className = `menu-pill ${c.color === 'pink' ? 'menu-pill-pink' : 'menu-pill-purple'} inline-flex`;
-  pill.style.cssText = 'border-radius:9999px;min-height:0;width:max-content;max-width:100%;padding:0.9rem 1.6rem';
+  pill.style.cssText = 'border-radius:1.5rem;min-height:0;width:100%;padding:0.9rem 1.6rem';
 
   document.getElementById('q-icon').src = c.icon;
   document.getElementById('q-title').innerHTML =
@@ -659,7 +680,7 @@ function showSuccessPopup(caseId) {
   const c = CASES[caseId];
   const overlay = document.getElementById('success-overlay');
   const box = document.getElementById('success-box');
-  box.style.background = POPUP_BG[c.color] || POPUP_BG.purple;
+  box.style.background = POPUP_BG.pink;
   document.getElementById('success-body').innerHTML = c.successHtml;
   overlay.classList.remove('hidden');
 }
@@ -818,6 +839,7 @@ function init() {
     if (e.target.id === 'success-overlay') closeSuccessPopup();
   });
   document.getElementById('fail-close').addEventListener('click', closeFailPopup);
+  document.getElementById('fail-retry').addEventListener('click', closeFailPopup);
   document.getElementById('fail-overlay').addEventListener('click', (e) => {
     if (e.target.id === 'fail-overlay') closeFailPopup();
   });
@@ -915,9 +937,23 @@ document.addEventListener('DOMContentLoaded', init);
 }
 
 .menu-pill-icon { width: 3.4rem; height: auto; flex-shrink: 0; }
-.menu-pill-text { display: flex; flex-direction: column; gap: 0.15rem; line-height: 1.1; }
-.menu-pill-thin { font-weight: 300; font-size: 1.45rem; letter-spacing: 0.02em; opacity: 0.97; }
-.menu-pill-bold { font-weight: 700; font-size: 1.65rem; letter-spacing: 0.02em; }
+.menu-pill-text { display: flex; flex-direction: column; gap: 0.15rem; line-height: 1.1; flex: 1; min-width: 0; }
+.menu-pill-thin { font-weight: 300; font-size: 1.75rem; letter-spacing: 0.02em; opacity: 0.97; white-space: normal; word-break: break-word; }
+.menu-pill-bold { font-weight: 700; font-size: 2rem; letter-spacing: 0.02em; white-space: normal; word-break: break-word; }
+
+/* Question-view pill: smaller text on mobile so long titles don't overflow */
+@media (max-width: 1023px) {
+  #q-title-pill .menu-pill-thin { font-size: 1.25rem; }
+  #q-title-pill .menu-pill-bold { font-size: 1.45rem; }
+  #q-title-pill { align-items: flex-start; }
+
+  /* Dark overlay behind description + question text for mobile contrast */
+  .q-text-block {
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 1rem;
+    padding: 0.9rem 1.1rem;
+  }
+}
 
 .menu-pill.is-done       { filter: brightness(0.7) saturate(0.6); }
 .menu-pill.is-failed     { box-shadow: 0 0 0 3px rgba(220,38,38,0.45), 0 6px 16px rgba(0,0,0,0.18); }
@@ -950,7 +986,10 @@ document.addEventListener('DOMContentLoaded', init);
   transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.15s;
   user-select: none;
   background: rgba(255, 255, 255, 0.88);
-  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-top: 2px solid rgba(255, 255, 255, 0.9);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+  border-left: none;
+  border-right: none;
   backdrop-filter: blur(4px);
   color: #4a1a55;
   font-weight: 600;
