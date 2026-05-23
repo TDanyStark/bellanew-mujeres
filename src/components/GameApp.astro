@@ -236,27 +236,22 @@ const CASES = {
       <div class="flex items-start gap-4 mb-5">
         <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.4rem;font-weight:700;line-height:1.3">
-          ¡CORRECTO! <span style="color:#fff">DISLIPIDEMIA CONTROLADA</span>
+          ¡CORRECTO!
         </h2>
       </div>
       <p style="color:#fff;margin-bottom:1rem;font-weight:600">
         En las mujeres con dislipidemia, la elección del componente estrogénico en las combinaciones hormonales es fundamental:
       </p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem">
-        <div style="background:rgba(255,255,255,0.15);border-radius:1rem;padding:0.85rem 1rem">
-          <p style="color:#fff;font-weight:700;font-size:0.95rem;margin:0 0 0.4rem 0">Etinilestradiol</p>
-          <p style="color:#fff;font-size:0.8rem;margin:0">Induce la síntesis de proteínas hepáticas, lo que puede provocar un aumento en los niveles de triglicéridos e influir en otros parámetros lipídicos.<sup>1</sup></p>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem">
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">El estradiol hemihidrato brinda un perfil metabólico más favorable, que no modifica los lípidos ni las lipoproteínas.<sup>1</sup></p>
         </div>
-        <div style="background:rgba(255,255,255,0.25);border-radius:1rem;padding:0.85rem 1rem">
-          <p style="color:#fff;font-weight:700;font-size:0.95rem;margin:0 0 0.4rem 0">17β-estradiol</p>
-          <p style="color:#fff;font-size:0.8rem;margin:0">Brinda un perfil metabólico más favorable, que no modifica los lípidos ni las lipoproteínas.<sup>1</sup></p>
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">El dienogest por sí solo no tiene un impacto significativo en el metabolismo lipídico.<sup>2</sup></p>
         </div>
       </div>
-      <p style="color:#fff;font-size:0.85rem;margin-bottom:1rem">
-        Además, el dienogest por sí solo no tiene un impacto significativo en el metabolismo lipídico.<sup>2</sup>
-      </p>
       <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
-        <strong>Referencias:</strong> 1. Cagnacci A, Xholli A, Gabbi L, et al. The impact of hormonal contraceptives containing estradiol, estradiol valerate, and estetrol on liver proteins, lipids, glucose, blood pressure, and bone. Eur J Contracept Reprod Health Care. 2025:1-12.
+        <strong>Referencias:</strong> 1. Cagnacci A, Xholli A, Gabbi L, et al. The impact of hormonal contraceptives containing estradiol, estradiol valerate, and estetrol on liver proteins, lipids, glucose, blood pressure, and bone. A literature review. Eur J Contracept Reprod Health Care. 2025:1-12.
         2. Bartsch V. Gynaecological uses of dienogest alone and in combination with oestrogens. J Med Drug Rev. 2015;5:1-31.
       </p>`,
   },
@@ -271,30 +266,30 @@ const CASES = {
     question: '¿Por qué estradiol hemihidrato 1.5 mg / dienogest 2 mg es una opción de elección para ella?',
     options: [
       { text: 'Efecto neutro sobre el metabolismo de la glucosa', correct: true },
-      { text: 'El 17β-estradiol ayuda a reducir la glucosa', correct: false },
+      { text: 'El estradiol hemihidrato ayuda a reducir la glucosa', correct: false },
       { text: 'El dienogest regula los picos de glucosa después de las comidas', correct: false },
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
         <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.4rem;font-weight:700;line-height:1.3">
-          ¡CORRECTO! <span style="color:#fff">DIABETES CONTROLADA</span>
+          ¡CORRECTO!
         </h2>
       </div>
-      <p style="color:#fff;margin-bottom:0.75rem;font-weight:600">
-        El componente estrogénico de las combinaciones hormonales puede influir en la tolerancia a la glucosa y, potencialmente, afectar su metabolismo.<sup>1</sup>
-      </p>
       <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem">
         <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
-          <p style="color:#fff;font-size:0.9rem;margin:0">El 17β-estradiol no afecta los niveles de glucosa en ayunas ni aumenta la resistencia a la insulina.<sup>1</sup></p>
+          <p style="color:#fff;font-size:0.9rem;margin:0">El componente estrogénico puede influir en la tolerancia a la glucosa y afectar su metabolismo.<sup>1</sup></p>
         </div>
         <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
-          <p style="color:#fff;font-size:0.9rem;margin:0">El dienogest, con sus propiedades antiproliferativas, antiangiogénicas y antiinflamatorias, no ejerce un efecto negativo sobre el metabolismo de la glucosa.<sup>2</sup></p>
+          <p style="color:#fff;font-size:0.9rem;margin:0">El estradiol hemihidrato no afecta los niveles de glucosa en ayunas ni aumenta la resistencia a la insulina.<sup>1</sup></p>
+        </div>
+        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
+          <p style="color:#fff;font-size:0.9rem;margin:0">El dienogest, con sus propiedades antiproliferativas, antiangiogénicas y antiinflamatorias, ejerce un efecto neutro sobre el metabolismo de la glucosa.<sup>2</sup></p>
         </div>
       </div>
       <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
-        <strong>Referencias:</strong> 1. Cagnacci A, Xholli A, Gabbi L, et al. Eur J Contracept Reprod Health Care. 2025:1-12.
-        2. Bartsch V. J Med Drug Rev. 2015;5:1-31.
+        <strong>Referencias:</strong> 1. Cagnacci A, Xholli A, Gabbi L, et al. The impact of hormonal contraceptives containing estradiol, estradiol valerate, and estetrol on liver proteins, lipids, glucose, blood pressure, and bone. A literature review. Eur J Contracept Reprod Health Care. 2025:1-12.
+        2. Bartsch V. Gynaecological uses of dienogest alone and in combination with oestrogens. J Med Drug Rev. 2015;5:1-31.
       </p>`,
   },
 
@@ -304,26 +299,26 @@ const CASES = {
     icon: `${URL_BASE}/icons/stairs.webp`,
     bg:   `${URL_BASE}/images/bg_secundarios.webp`,
     color: 'pink',
-    description: 'Carolina, de 24 años, ha usado previamente anticonceptivos con etinilestradiol y presentó náuseas, cefalea y tensión mamaria. Busca una alternativa con menos efectos secundarios.',
+    description: 'Carolina, de 24 años, ha usado previamente anticonceptivos combinados tradicionales y presentó náuseas, cefalea y tensión mamaria. Busca una alternativa con menos efectos secundarios.',
     question: '¿Por qué estradiol hemihidrato 1.5 mg / dienogest 2 mg es una opción de elección para ella?',
     options: [
       { text: 'El dienogest neutraliza todos los efectos secundarios', correct: false },
-      { text: 'El 17β-estradiol ofrece una mejor tolerabilidad', correct: true },
-      { text: 'El 17β-estradiol es igual que el etinilestradiol', correct: false },
+      { text: 'El estradiol hemihidrato ofrece una mejor tolerabilidad', correct: true },
+      { text: 'El estradiol hemihidrato es igual a todos los estrógenos', correct: false },
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
         <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
-          ¡CORRECTO! <span style="color:#fff">MEJOR TOLERABILIDAD</span>
+          ¡CORRECTO!
         </h2>
       </div>
       <p style="color:#fff;font-size:0.95rem;margin-bottom:1rem">
-        Debido a su perfil de seguridad mejorado, el <strong>17β-estradiol</strong> es una alternativa de elección para las mujeres con baja tolerancia al etinilestradiol, ya que induce significativamente menos efectos secundarios relacionados con los estrógenos.<sup>1,2</sup>
+        Debido a su perfil de seguridad mejorado, el <strong>estradiol hemihidrato</strong> induce significativamente menos efectos secundarios relacionados con los estrógenos, como náuseas, cefalea y tensión mamaria.<sup>1,2</sup>
       </p>
       <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
         <strong>Referencias:</strong> 1. Jensen J, Bitzer J, Serrani M. Comparison of the pharmacologic and clinical profiles of new combined oral contraceptives containing estradiol. Open Access J Contracept. 2013;4:39-50.
-        2. Klipping C, Duijkers I, Parke S, et al. Hemostatic effects of a novel estradiol-based oral contraceptive. Drugs R D. 2011;11(2):159-70.
+        2. Klipping C, Duijkers I, Parke S, et al. Hemostatic effects of a novel estradiol-based oral contraceptive: an open-label, randomized, crossover study of estradiol valerate/dienogest versus ethinylestradiol/levonorgestrel. Drugs R D. 2011;11(2):159-70.
       </p>`,
   },
 
@@ -336,20 +331,20 @@ const CASES = {
     description: 'Daniela, de 20 años, ha experimentado irritabilidad y fluctuaciones emocionales con otros anticonceptivos. Busca una opción con estrógeno natural que favorezca la estabilidad del estado de ánimo.',
     question: '¿Por qué estradiol hemihidrato 1.5 mg / dienogest 2 mg es una opción de elección para ella?',
     options: [
-      { text: 'El 17β-estradiol ejerce un efecto positivo sobre la regulación emocional', correct: true },
-      { text: 'El 17β-estradiol actúa como un antidepresivo clínico', correct: false },
+      { text: 'El estradiol hemihidrato ejerce un efecto positivo sobre la regulación emocional', correct: true },
+      { text: 'El estradiol hemihidrato actúa como un antidepresivo clínico', correct: false },
       { text: 'El dienogest aumenta la dopamina', correct: false },
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
         <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
-          ¡CORRECTO! <span style="color:#fff">REGULACIÓN EMOCIONAL</span>
+          ¡CORRECTO!
         </h2>
       </div>
       <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem">
         <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
-          <p style="color:#fff;font-size:0.9rem;margin:0">El 17β-estradiol potencia la síntesis de serotonina y eleva sus niveles precursores, por lo cual tiene efectos que mejoran el estado de ánimo.<sup>1</sup></p>
+          <p style="color:#fff;font-size:0.9rem;margin:0">El estradiol hemihidrato potencia la síntesis de serotonina y eleva sus niveles, por lo cual tiene efectos que mejoran el estado de ánimo.<sup>1</sup></p>
         </div>
         <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
           <p style="color:#fff;font-size:0.9rem;margin:0">También desempeña un papel esencial en el aprendizaje y la formación de la memoria, por lo que puede ayudar a mejorar las funciones cognitivas.<sup>1,2</sup></p>
@@ -359,9 +354,9 @@ const CASES = {
         </div>
       </div>
       <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
-        <strong>Referencias:</strong> 1. Battipaglia C, Szeliga A, Setti V, et al. Endocrines. 2025;6(3):37.
-        2. Creinin MD, Cagnacci A, Spaczynski RZ, et al. Front Glob Womens Health. 2024;5:1395863.
-        3. Bartsch V. J Med Drug Rev. 2015;5:1-31.
+        <strong>Referencias:</strong> 1. Battipaglia C, Szeliga A, Setti V, et al. Neuroendocrinological Aspects of a Tailored Hormonal Contraception. Endocrines. 2025;6(3):37.
+        2. Creinin MD, Cagnacci A, Spaczynski RZ, et al. Experts' view on the role of oestrogens in combined oral contraceptives: emphasis on oestetrol (E4). Front Glob Womens Health. 2024;5:1395863.
+        3. Bartsch V. Gynaecological uses of dienogest alone and in combination with oestrogens. J Med Drug Rev. 2015;5:1-31.
       </p>`,
   },
 
@@ -371,35 +366,32 @@ const CASES = {
     icon: `${URL_BASE}/icons/schedule.webp`,
     bg:   `${URL_BASE}/images/bg_sangrados.webp`,
     color: 'purple',
-    description: 'Sofía, de 27 años, desea una opción anticonceptiva de bajo impacto hormonal, pero teme que sus patrones de sangrado se vuelvan impredecibles.',
+    description: 'Sofía, de 27 años, desea una opción anticonceptiva de bajo impacto hormonal y con la que, al mismo tiempo, pueda tener patrones de sangrado predecibles y menos abundantes.',
     question: '¿Por qué estradiol hemihidrato 1.5 mg / dienogest 2 mg es una opción de elección para ella?',
     options: [
-      { text: 'El 17β-estradiol + dienogest proporciona sangrados predecibles pero más abundantes', correct: false },
-      { text: 'El 17β-estradiol + dienogest elimina por completo los sangrados desde el primer ciclo', correct: false },
-      { text: 'El 17β-estradiol + dienogest proporciona un buen patrón de sangrado', correct: true },
+      { text: 'El dienogest ayuda a proporcionar sangrados predecibles pero más abundantes', correct: false },
+      { text: 'El dienogest elimina por completo los sangrados desde el primer ciclo', correct: false },
+      { text: 'El dienogest ayuda a proporcionar un buen patrón de sangrado', correct: true },
     ],
     successHtml: `
       <div class="flex items-start gap-4 mb-5">
         <img src="${URL_BASE}/icons/icon_correct.webp" style="width:3.5rem;height:auto;flex-shrink:0" alt="">
         <h2 style="color:#fff;font-size:1.3rem;font-weight:700;line-height:1.3">
-          ¡CORRECTO! <span style="color:#fff">BUEN PATRÓN DE SANGRADO</span>
+          ¡CORRECTO!
         </h2>
       </div>
       <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1rem">
         <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
-          <p style="color:#fff;font-size:0.9rem;margin:0">Las usuarias de combinaciones hormonales con 17β-estradiol experimentan sangrados más cortos y menos abundantes, en comparación con las usuarias de combinaciones con etinilestradiol.<sup>1</sup></p>
+          <p style="color:#fff;font-size:0.9rem;margin:0">El potente efecto del dienogest sobre el endometrio ayuda, en gran medida, a reducir los sangrados irregulares y a disminuir la duración y la cantidad.<sup>1</sup></p>
         </div>
         <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
-          <p style="color:#fff;font-size:0.9rem;margin:0">Cuando se presentan patrones irregulares de sangrado, son más frecuentes al inicio del tratamiento y suelen normalizarse al cabo de 3 meses en la mayoría de las usuarias.<sup>1,2</sup></p>
-        </div>
-        <div style="background:rgba(255,255,255,0.18);border-radius:1rem;padding:0.7rem 1rem">
-          <p style="color:#fff;font-size:0.9rem;margin:0">El potente efecto del dienogest sobre el endometrio ayuda, en gran medida, a reducir los sangrados irregulares.<sup>3</sup></p>
+          <p style="color:#fff;font-size:0.9rem;margin:0">Cuando se presentan patrones irregulares de sangrado asociados con el estradiol hemihidrato, estos son más frecuentes al inicio del tratamiento y suelen normalizarse al cabo de 3 meses en la mayoría de las usuarias.<sup>2,3</sup></p>
         </div>
       </div>
       <p style="color:rgba(255,255,255,0.85);font-size:0.7rem;margin-top:1rem;line-height:1.4">
-        <strong>Referencias:</strong> 1. Faculty of Sexual & Reproductive Healthcare. Problematic Bleeding with Hormonal Contraception. FSRH; 2015.
-        2. Archer DF, Mansour D, Foidart JM. J Clin Med. 2022;11(15):4634.
-        3. Bartsch V. J Med Drug Rev. 2015;5:1-31.
+        <strong>Referencias:</strong> 1. Bartsch V. Gynaecological uses of dienogest alone and in combination with oestrogens. J Med Drug Rev. 2015;5:1-31.
+        2. Faculty of Sexual & Reproductive Healthcare. Problematic Bleeding with Hormonal Contraception. FSRH; 2015.
+        3. Archer DF, Mansour D, Foidart JM. Bleeding Patterns of Oral Contraceptives with a Cyclic Dosing Regimen: An Overview. J Clin Med. 2022;11(15):4634.
       </p>`,
   },
 };
